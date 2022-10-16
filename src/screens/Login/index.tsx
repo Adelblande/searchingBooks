@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonLogin, Container, Icon, Title } from './styles';
+import { ButtonLogin, Container, Icon, TextButton, Title } from './styles';
 import { useTheme } from 'styled-components';
 import { StatusBar, TouchableOpacity } from 'react-native';
 
@@ -15,6 +15,7 @@ export function Login({ navigation }) {
       <Title>Searching books</Title>
       <TouchableOpacity onPress={() => navigation.push('Home')}>
         <ButtonLogin>
+          <TextButton>Entrar com Google</TextButton>
           <Icon name="log-in" />
         </ButtonLogin>
       </TouchableOpacity>

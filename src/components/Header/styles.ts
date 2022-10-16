@@ -45,6 +45,11 @@ export const Icon = styled(Feather)`
   color: ${({ theme }) => theme.colors.secundary};
 `;
 
+export const ProvisoryPhoto = styled(Feather)`
+  font-size: ${RFValue(48)}px;
+  color: ${({ theme }) => theme.colors.text};
+`;
+
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
 `;

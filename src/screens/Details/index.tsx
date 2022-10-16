@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Header } from '../../components/Header';
+import { useAuth } from '../../hooks/auth';
 import { api } from '../../services/api';
 import {
   Container,
@@ -23,11 +24,12 @@ interface DetailsProps {
 }
 
 export function Details({ route, navigation }) {
+  const { user } = useAuth();
   const [details, setDetails] = useState({} as DetailsProps);
 
   const fetchDetailsById = async () => {
     const { data } = await api.get(`/volumes/${route.params.id}`);
-    console.log('details--> ', data);
+
     const detailsResponse = {
       id: data.id,
       title: data.volumeInfo.title,
@@ -44,7 +46,7 @@ export function Details({ route, navigation }) {
     }, '');
 
     authorsString = authorsString?.substring(0, authorsString.length - 2);
-    // authorsString.replace(authorsString.lastIndexOf(',') + 1, ' e ');
+
     return authorsString;
   }, [details.authors]);
 
@@ -54,7 +56,7 @@ export function Details({ route, navigation }) {
 
   return (
     <Container>
-      <Header />
+      <Header name={user.name} photo={user?.photo} />
       <Content>
         <HeaderContent>
           <TouchableOpacity onPress={() => navigation.goBack()}>

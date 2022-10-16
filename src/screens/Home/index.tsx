@@ -23,6 +23,7 @@ import {
 
 import { api } from '../../services/api';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../hooks/auth';
 
 interface ResultsProps {
   id: string;
@@ -31,6 +32,8 @@ interface ResultsProps {
 }
 
 export function Home() {
+  const { user } = useAuth();
+
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([] as ResultsProps[]);
   const [startIndex, setStartIndex] = useState(0);
@@ -89,7 +92,7 @@ export function Home() {
         backgroundColor={theme.colors.primary}
         barStyle="light-content"
       />
-      <Header />
+      <Header name={user.name} photo={user?.photo} />
       <SearchContainer>
         <Input
           placeholder="Digite o título do livro"

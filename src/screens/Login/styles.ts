@@ -14,16 +14,24 @@ export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.title};
 `;
 
+export const TextButton = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.medium};
+  color: ${({ theme }) => theme.colors.title};
+  font-size: ${RFValue(16)}px;
+  margin-right: 16px;
+`;
+
 export const Icon = styled(Feather)`
   color: ${({ theme }) => theme.colors.shape};
   font-size: 20px;
 `;
 
 export const ButtonLogin = styled.View`
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: ${RFValue(200)}px;
-  height: ${RFValue(40)}px;
+  width: ${RFValue(250)}px;
+  height: ${RFValue(50)}px;
   border-radius: 8px;
   margin-top: 16px;
   background-color: ${({ theme }) => theme.colors.primary};

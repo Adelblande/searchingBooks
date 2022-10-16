@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { Routes } from './src/routes/app.routes';
 import theme from './src/global/styles/theme';
 import { StatusBar } from 'react-native';
+import { AuthProvider } from './src/hooks/auth';
 
 const App = () => {
   return (
@@ -14,7 +15,9 @@ const App = () => {
           backgroundColor={theme.colors.primary}
           barStyle="light-content"
         />
-        <Routes />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </NavigationContainer>
     </ThemeProvider>
   );
