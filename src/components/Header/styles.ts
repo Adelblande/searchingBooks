@@ -23,7 +23,7 @@ export const Wrapper = styled.View`
 export const Photo = styled.Image`
   width: ${RFValue(48)}px;
   height: ${RFValue(48)}px;
-  border-radius: 8px;
+  border-radius: ${RFValue(24)}px;
 `;
 
 export const GreetingContainer = styled.View`

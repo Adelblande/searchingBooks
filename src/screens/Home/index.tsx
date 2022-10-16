@@ -64,17 +64,13 @@ export function Home() {
   };
 
   const handleMoreSearch = useCallback(() => {
-    console.log('handleMoreSearch-->', results.length, totalResults);
-    console.log('results handleMoreSearch-->', results);
-
     if (results.length < totalResults) {
       setStartIndex(state => state + MAX_RESULTS);
-      // handleSearch();
     }
   }, [results.length, totalResults]);
 
-  const handleNavigationToDetails = id => {
-    navigation.navigate('Details');
+  const handleNavigationToDetails = (id: string) => {
+    navigation.navigate('Details', { id });
   };
 
   useEffect(() => {
