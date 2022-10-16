@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+import {
+  FlatList,
+  TouchableOpacity,
+  Image,
+  SafeAreaView,
+  StatusBar,
+} from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
 
@@ -79,6 +85,10 @@ export function Home() {
 
   return (
     <Container>
+      <StatusBar
+        backgroundColor={theme.colors.primary}
+        barStyle="light-content"
+      />
       <Header />
       <SearchContainer>
         <Input

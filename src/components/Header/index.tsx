@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import {
   Container,
@@ -13,6 +14,7 @@ import {
 } from './styles';
 
 export function Header() {
+  const navigation = useNavigation();
   return (
     <Container>
       <Wrapper>
@@ -23,8 +25,8 @@ export function Header() {
             <UserName>Adelblande</UserName>
           </GreetingContainer>
         </UserContainer>
-        <TouchableOpacity>
-          <Icon name="power" />
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Icon name="log-out" />
         </TouchableOpacity>
       </Wrapper>
     </Container>
