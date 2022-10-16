@@ -5,9 +5,9 @@ export default {
     success: '#12A454',
     attention: '#E83F5B',
     shape: '#FFFFFF',
-    title: '#2F323D',
+    title: '#F0F2F5',
     text: '#969CB3',
-    background: '#F0F2F5',
+    background: '#2F323D',
   },
   fonts: {
     bold: 'Poppins-Bold',

@@ -1,13 +1,21 @@
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
 
-import { Home } from './src/screens/Home';
+import { Routes } from './src/routes/app.routes';
 import theme from './src/global/styles/theme';
+import { StatusBar } from 'react-native';
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Home />
+      <NavigationContainer>
+        <StatusBar
+          backgroundColor={theme.colors.primary}
+          barStyle="light-content"
+        />
+        <Routes />
+      </NavigationContainer>
     </ThemeProvider>
   );
 };
