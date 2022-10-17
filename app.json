@@ -1,4 +1,6 @@
 {
   "name": "searchingBooks",
-  "displayName": "searchingBooks"
+  "displayName": "searchingBooks",
+  "slug": "searchingBooks",
+  "schema": "searchingBooks"
 }

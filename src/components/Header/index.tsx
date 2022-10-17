@@ -13,7 +13,6 @@ import {
   Icon,
   ProvisoryPhoto,
 } from './styles';
-import { useAuth } from '../../hooks/auth';
 
 interface HeaderProps {
   name: string;
@@ -21,8 +20,6 @@ interface HeaderProps {
 }
 
 export function Header({ name, photo }: HeaderProps) {
-  const { user } = useAuth();
-
   const navigation = useNavigation();
   return (
     <Container>
