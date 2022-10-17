@@ -1,5 +1,12 @@
-import React, { createContext, useContext, ReactNode, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from 'react';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface IUser {
   id: string;
@@ -30,18 +37,34 @@ function AuthProvider({ children }: IAuthProviderProps) {
       });
       const response = await GoogleSignin.signIn();
       if (response.idToken) {
-        setUser({
+        const userLogged = {
           id: response.user.id,
           name: response.user.givenName || '',
           email: response.user.email,
           photo: response.user.photo || '',
-        });
+        };
+
+        setUser(userLogged);
+        await AsyncStorage.setItem(
+          '@searchingBooks:user',
+          JSON.stringify(userLogged),
+        );
       }
-      console.log('signInWithGoogle-->', response);
     } catch (error) {
       throw new Error();
     }
   }
+
+  useEffect(() => {
+    async function loadUserStorage() {
+      const userStorage = await AsyncStorage.getItem('@searchingBooks:user');
+      if (userStorage) {
+        const userLogged = JSON.parse(userStorage);
+        setUser(userLogged);
+      }
+    }
+    loadUserStorage();
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, signInWithGoogle }}>
