@@ -18,6 +18,7 @@ interface IUser {
 interface IAuthContextData {
   user: IUser;
   signInWithGoogle(): Promise<void>;
+  signOut(): Promise<void>;
 }
 
 interface IAuthProviderProps {
@@ -55,6 +56,12 @@ function AuthProvider({ children }: IAuthProviderProps) {
     }
   }
 
+  async function signOut() {
+    await GoogleSignin.signOut();
+    await AsyncStorage.removeItem('@searchingBooks:user');
+    setUser({} as IUser);
+  }
+
   useEffect(() => {
     async function loadUserStorage() {
       const userStorage = await AsyncStorage.getItem('@searchingBooks:user');
@@ -67,7 +74,7 @@ function AuthProvider({ children }: IAuthProviderProps) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle }}>
+    <AuthContext.Provider value={{ user, signInWithGoogle, signOut }}>
       {children}
     </AuthContext.Provider>
   );

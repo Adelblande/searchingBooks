@@ -1,6 +1,5 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 import {
   Container,
@@ -13,6 +12,7 @@ import {
   Icon,
   ProvisoryPhoto,
 } from './styles';
+import { useAuth } from '../../hooks/auth';
 
 interface HeaderProps {
   name: string;
@@ -20,7 +20,8 @@ interface HeaderProps {
 }
 
 export function Header({ name, photo }: HeaderProps) {
-  const navigation = useNavigation();
+  const { signOut } = useAuth();
+
   return (
     <Container>
       <Wrapper>
@@ -35,7 +36,7 @@ export function Header({ name, photo }: HeaderProps) {
             <UserName>{name}</UserName>
           </GreetingContainer>
         </UserContainer>
-        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <TouchableOpacity onPress={() => signOut()}>
           <Icon name="log-out" />
         </TouchableOpacity>
       </Wrapper>
