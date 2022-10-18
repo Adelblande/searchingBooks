@@ -1,5 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTheme } from 'styled-components';
+
 import { Header } from '../../components/Header';
 import { useAuth } from '../../hooks/auth';
 import { api } from '../../services/api';
@@ -25,10 +28,27 @@ interface DetailsProps {
 
 export function Details({ route, navigation }) {
   const { user } = useAuth();
+  const theme = useTheme();
   const [details, setDetails] = useState({} as DetailsProps);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const { id } = route.params;
+
+  const storageFavoritesKey = `@searchingBooks:favorites${user.id}`;
+
+  const authors = useMemo(() => {
+    let authorsString = details.authors?.reduce((acc, current) => {
+      return `${acc} ${current}, `;
+    }, '');
+
+    authorsString = authorsString?.substring(0, authorsString.length - 2);
+
+    return details.authors?.length > 1
+      ? `Autores: ${authorsString}`
+      : `Autor: ${authorsString}`;
+  }, [details.authors]);
 
   const fetchDetailsById = async () => {
-    const { data } = await api.get(`/volumes/${route.params.id}`);
+    const { data } = await api.get(`/volumes/${id}`);
 
     const detailsResponse = {
       id: data.id,
@@ -40,18 +60,43 @@ export function Details({ route, navigation }) {
     setDetails(detailsResponse);
   };
 
-  const authors = useMemo(() => {
-    let authorsString = details.authors?.reduce((acc, current) => {
-      return `${acc} ${current}, `;
-    }, '');
+  const handleFavorite = async () => {
+    const favoritesInStorage = await AsyncStorage.getItem(storageFavoritesKey);
 
-    authorsString = authorsString?.substring(0, authorsString.length - 2);
-
-    return authorsString;
-  }, [details.authors]);
+    let favorites: DetailsProps[] = [];
+    if (favoritesInStorage) {
+      favorites = [...JSON.parse(favoritesInStorage)];
+      const index = favorites.findIndex(favorite => favorite.id === details.id);
+      if (index === -1) {
+        favorites.push(details);
+        setIsFavorite(true);
+      } else {
+        favorites.splice(index, 1);
+        setIsFavorite(false);
+      }
+    } else {
+      favorites.push(details);
+      setIsFavorite(true);
+    }
+    await AsyncStorage.setItem(storageFavoritesKey, JSON.stringify(favorites));
+  };
 
   useEffect(() => {
     fetchDetailsById();
+  }, []);
+
+  useEffect(() => {
+    async function verifyFavorite() {
+      const favoritesInStorage = await AsyncStorage.getItem(
+        storageFavoritesKey,
+      );
+      if (favoritesInStorage) {
+        let favorites: DetailsProps[] = JSON.parse(favoritesInStorage);
+        const hasInFavorites = favorites.some(favorite => favorite.id === id);
+        setIsFavorite(hasInFavorites);
+      }
+    }
+    verifyFavorite();
   }, []);
 
   return (
@@ -60,11 +105,17 @@ export function Details({ route, navigation }) {
       <Content>
         <HeaderContent>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="arrow-left" />
+            <Icon name="arrow-left" color={theme.colors.secundary} />
           </TouchableOpacity>
           <Title>{details?.title}</Title>
+          <TouchableOpacity onPress={handleFavorite}>
+            <Icon
+              name="heart"
+              color={isFavorite ? theme.colors.attention : theme.colors.text}
+            />
+          </TouchableOpacity>
         </HeaderContent>
-        <Authors>{`Autores: ${authors}`}</Authors>
+        <Authors>{`${authors}`}</Authors>
         <CoverOfBook source={{ uri: details.image }} />
         <DescriptionContainer>
           <DescriptionText>{details.description}</DescriptionText>

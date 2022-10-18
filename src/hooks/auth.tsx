@@ -13,6 +13,7 @@ interface IUser {
   name: string;
   email: string;
   photo?: string;
+  idToken?: string;
 }
 
 interface IAuthContextData {
@@ -26,6 +27,7 @@ interface IAuthProviderProps {
 }
 
 const { WEB_CLIENT_ID } = process.env;
+
 const AuthContext = createContext({} as IAuthContextData);
 
 function AuthProvider({ children }: IAuthProviderProps) {
@@ -37,12 +39,14 @@ function AuthProvider({ children }: IAuthProviderProps) {
         webClientId: WEB_CLIENT_ID,
       });
       const response = await GoogleSignin.signIn();
+
       if (response.idToken) {
         const userLogged = {
           id: response.user.id,
           name: response.user.givenName || '',
           email: response.user.email,
           photo: response.user.photo || '',
+          idToken: response.idToken,
         };
 
         setUser(userLogged);
@@ -57,9 +61,9 @@ function AuthProvider({ children }: IAuthProviderProps) {
   }
 
   async function signOut() {
-    await GoogleSignin.signOut();
-    await AsyncStorage.removeItem('@searchingBooks:user');
     setUser({} as IUser);
+    await AsyncStorage.removeItem('@searchingBooks:user');
+    await GoogleSignin.signOut();
   }
 
   useEffect(() => {

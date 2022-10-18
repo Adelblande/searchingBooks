@@ -53,3 +53,10 @@ export const ProvisoryPhoto = styled(Feather)`
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
 `;
+
+export const WrapperToNav = styled.View`
+  flex-direction: row;
+  width: 60px;
+  align-items: center;
+  justify-content: space-between;
+`;

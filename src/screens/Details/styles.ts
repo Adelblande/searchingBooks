@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import Feather from 'react-native-vector-icons/Feather';
-import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   flex: 1;
@@ -24,7 +24,6 @@ export const Title = styled.Text`
 `;
 
 export const Icon = styled(Feather)`
-  color: ${({ theme }) => theme.colors.secundary};
   font-size: 24px;
   margin-right: 8px;
 `;

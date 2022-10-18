@@ -86,6 +86,12 @@ export function Home() {
     !!startIndex && handleSearch();
   }, [startIndex]);
 
+  useEffect(() => {
+    if (search.length === 0) {
+      setResults([]);
+    }
+  }, [search]);
+
   return (
     <Container>
       <StatusBar
@@ -111,7 +117,7 @@ export function Home() {
           renderItem={({ item }) => (
             <TouchableOpacity
               key={item.id}
-              onPress={() => handleNavigationToDetails(item.id)}>
+              onPress={() => item.image && handleNavigationToDetails(item.id)}>
               {item.image ? (
                 <Image
                   source={{ uri: item.image }}

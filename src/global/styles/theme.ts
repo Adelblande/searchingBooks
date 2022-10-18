@@ -8,6 +8,7 @@ export default {
     title: '#F0F2F5',
     text: '#969CB3',
     background: '#2F323D',
+    cardBackground: '#374151',
   },
   fonts: {
     bold: 'Poppins-Bold',
