@@ -4,7 +4,7 @@ import { useTheme } from 'styled-components';
 import { StatusBar, TouchableOpacity, Alert } from 'react-native';
 import { useAuth } from '../../hooks/auth';
 
-export function Login({ navigation }) {
+export function Login() {
   const theme = useTheme();
   const { signInWithGoogle } = useAuth();
 

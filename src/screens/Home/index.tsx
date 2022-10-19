@@ -1,11 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-  FlatList,
-  TouchableOpacity,
-  Image,
-  SafeAreaView,
-  StatusBar,
-} from 'react-native';
+import { FlatList, TouchableOpacity, Image, StatusBar } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
 
