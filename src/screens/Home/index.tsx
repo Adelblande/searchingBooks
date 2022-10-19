@@ -95,7 +95,7 @@ export function Home() {
       <Header name={user.name} photo={user?.photo} />
       <SearchContainer>
         <Input
-          placeholder="Digite o título do livro"
+          placeholder="Digite o título para pesquisar"
           placeholderTextColor={theme.colors.secundary}
           onChangeText={setSearch}
         />

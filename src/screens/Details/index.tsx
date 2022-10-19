@@ -24,6 +24,7 @@ interface DetailsProps {
   authors: string[];
   description: string;
   image: string;
+  publishedDate: string;
 }
 
 export function Details({ route, navigation }) {
@@ -42,9 +43,14 @@ export function Details({ route, navigation }) {
 
     authorsString = authorsString?.substring(0, authorsString.length - 2);
 
-    return details.authors?.length > 1
-      ? `Autores: ${authorsString}`
-      : `Autor: ${authorsString}`;
+    authorsString =
+      details.authors?.length > 1
+        ? `Autores: ${authorsString}`
+        : `Autor: ${authorsString}`;
+
+    return `${authorsString} - Publicado em ${new Date(
+      details.publishedDate,
+    ).toLocaleDateString()}`;
   }, [details.authors]);
 
   const fetchDetailsById = async () => {
@@ -56,6 +62,7 @@ export function Details({ route, navigation }) {
       authors: data.volumeInfo.authors,
       description: data.volumeInfo.description,
       image: data.volumeInfo.imageLinks.thumbnail,
+      publishedDate: data.volumeInfo.publishedDate,
     };
     setDetails(detailsResponse);
   };
