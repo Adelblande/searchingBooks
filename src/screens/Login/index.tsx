@@ -1,5 +1,12 @@
 import React from 'react';
-import { ButtonLogin, Container, Icon, TextButton, Title } from './styles';
+import {
+  ButtonLogin,
+  Container,
+  Icon,
+  TextButton,
+  Title,
+  Logo,
+} from './styles';
 import { useTheme } from 'styled-components';
 import { StatusBar, TouchableOpacity, Alert } from 'react-native';
 import { useAuth } from '../../hooks/auth';
@@ -23,7 +30,7 @@ export function Login() {
         backgroundColor={theme.colors.background}
         barStyle="light-content"
       />
-      <Icon name="book-open" />
+      <Logo name="book-open" />
       <Title>Searching books</Title>
       <TouchableOpacity onPress={handleSignInWithGoogle}>
         <ButtonLogin>

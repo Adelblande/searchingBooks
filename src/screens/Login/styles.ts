@@ -25,6 +25,11 @@ export const Icon = styled(Feather)`
   color: ${({ theme }) => theme.colors.shape};
   font-size: 20px;
 `;
+export const Logo = styled(Feather)`
+  color: ${({ theme }) => theme.colors.shape};
+  font-size: 50px;
+  margin-bottom: 12px;
+`;
 
 export const ButtonLogin = styled.View`
   flex-direction: row;
