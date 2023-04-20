@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import { Header } from '../../components/Header';
 import { useAuth } from '../../hooks/auth';
@@ -58,7 +58,7 @@ export function Favorites() {
         {favorites.map(favorite => (
           <TouchableOpacity
             key={favorite.id}
-            onPress={() => navigation.navigate('Details', { id: favorite.id })}>
+            onPress={() => navigation.navigate('details', { id: favorite.id })}>
             <FavoriteCard>
               <Image
                 source={{ uri: favorite.image }}

@@ -2,7 +2,8 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 
-import theme from './src/global/styles/theme';
+import 'react-native-gesture-handler';
+import { theme } from './src/global/styles/theme';
 import { Routes } from './src/routes';
 import { AuthProvider } from './src/hooks/auth';
 

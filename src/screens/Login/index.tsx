@@ -19,7 +19,7 @@ export function Login() {
     try {
       await signInWithGoogle();
     } catch (error) {
-      console.log('handleSignInWithGoogle-->', error);
+      console.log('handleSignInWithGoogle error-->', error.message);
       Alert.alert('Não foi possivel fazer o login.');
     }
   }

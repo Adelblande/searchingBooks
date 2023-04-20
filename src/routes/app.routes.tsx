@@ -1,18 +1,36 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { House, Heart } from 'phosphor-react-native';
 
-import { Home } from '../screens/Home';
-import { Details } from '../screens/Details';
-import { Favorites } from '../screens/Favorites';
+import { HomeNavigator } from '../navigators/HomeNavigator';
+import { useTheme } from 'styled-components/native';
+import { FavoritesNavigator } from '../navigators/FavoritesNavigator';
 
-const Stack = createNativeStackNavigator();
+const { Navigator, Screen } = createBottomTabNavigator();
 
 export function AppRoutes() {
+  const theme = useTheme();
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Details" component={Details} />
-      <Stack.Screen name="Favorites" component={Favorites} />
-    </Stack.Navigator>
+    <Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color }) => {
+          const tabIcon = {
+            home: <House color={color} size={30} />,
+            favorites: <Heart color={color} size={30} />,
+          };
+
+          return tabIcon[route.name];
+        },
+        tabBarActiveTintColor: theme.colors.secundary,
+        tabBarStyle: {
+          backgroundColor: theme.colors.background,
+          borderTopWidth: 0,
+        },
+        headerShown: false,
+        tabBarShowLabel: false,
+      })}>
+      <Screen name="home" component={HomeNavigator} />
+      <Screen name="favorites" component={FavoritesNavigator} />
+    </Navigator>
   );
 }
