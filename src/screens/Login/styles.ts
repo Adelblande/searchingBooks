@@ -12,6 +12,7 @@ export const Container = styled.View`
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.title};
+  font-size: ${RFValue(20)}px;
 `;
 
 export const TextButton = styled.Text`
@@ -27,7 +28,7 @@ export const Icon = styled(Feather)`
 `;
 export const Logo = styled(Feather)`
   color: ${({ theme }) => theme.colors.shape};
-  font-size: 50px;
+  font-size: 100px;
   margin-bottom: 12px;
 `;
 

@@ -4,6 +4,7 @@ import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   width: 100%;
+  justify-content: center;
   height: ${RFPercentage(10)}px;
   background-color: ${({ theme }) => theme.colors.primary};
 `;
@@ -27,12 +28,15 @@ export const Photo = styled.Image`
 `;
 
 export const GreetingContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
   padding: 0 16px;
 `;
 
 export const Greeting = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.shape};
+  margin-right: 8px;
 `;
 
 export const UserName = styled.Text`
@@ -52,11 +56,4 @@ export const ProvisoryPhoto = styled(Feather)`
 
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
-`;
-
-export const WrapperToNav = styled.View`
-  flex-direction: row;
-  width: 60px;
-  align-items: center;
-  justify-content: space-between;
 `;

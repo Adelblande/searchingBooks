@@ -11,10 +11,8 @@ import {
   UserName,
   Icon,
   ProvisoryPhoto,
-  WrapperToNav,
 } from './styles';
 import { useAuth } from '../../hooks/auth';
-import { useNavigation } from '@react-navigation/native';
 
 interface HeaderProps {
   name: string;
@@ -23,7 +21,6 @@ interface HeaderProps {
 
 export function Header({ name, photo }: HeaderProps) {
   const { signOut } = useAuth();
-  const navigation = useNavigation();
 
   return (
     <Container>
@@ -39,14 +36,9 @@ export function Header({ name, photo }: HeaderProps) {
             <UserName>{name}</UserName>
           </GreetingContainer>
         </UserContainer>
-        <WrapperToNav>
-          <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-            <Icon name="heart" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => signOut()}>
-            <Icon name="log-out" />
-          </TouchableOpacity>
-        </WrapperToNav>
+        <TouchableOpacity onPress={() => signOut()}>
+          <Icon name="log-out" />
+        </TouchableOpacity>
       </Wrapper>
     </Container>
   );

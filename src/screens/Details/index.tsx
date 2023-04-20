@@ -61,7 +61,7 @@ export function Details({ route, navigation }) {
       title: data.volumeInfo.title,
       authors: data.volumeInfo.authors,
       description: data.volumeInfo.description,
-      image: data.volumeInfo.imageLinks.thumbnail,
+      image: data.volumeInfo.imageLinks.medium,
       publishedDate: data.volumeInfo.publishedDate,
     };
     setDetails(detailsResponse);

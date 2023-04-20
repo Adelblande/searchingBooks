@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, TouchableOpacity, Image, StatusBar } from 'react-native';
+import {
+  FlatList,
+  TouchableOpacity,
+  Image,
+  StatusBar,
+  Dimensions,
+} from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
 
@@ -35,15 +41,14 @@ export function Home() {
   const [totalResults, setTotalResults] = useState(0);
 
   const MAX_RESULTS = 10;
+  const { width } = Dimensions.get('window');
 
   const theme = useTheme();
   const navigation = useNavigation();
 
   const handleSearch = async () => {
     if (!search) {
-      return setMessage(
-        'Digite ao menos parte do título que deseja pesquisar.',
-      );
+      return setMessage('Digite o título que deseja pesquisar.');
     }
 
     try {
@@ -62,6 +67,7 @@ export function Home() {
 
       setResults(state => [...state, ...dataResults]);
     } catch (error) {
+      console.log('handleSearch error', error);
       return setMessage('Algo deu errado.');
     }
   };
@@ -73,7 +79,7 @@ export function Home() {
   }, [results.length, totalResults]);
 
   const handleNavigationToDetails = (id: string) => {
-    navigation.navigate('Details', { id });
+    navigation.navigate('details', { id });
   };
 
   useEffect(() => {
@@ -85,6 +91,10 @@ export function Home() {
       setResults([]);
     }
   }, [search]);
+
+  useEffect(() => {
+    console.log('Results-->', results);
+  }, [results]);
 
   return (
     <Container>
@@ -108,6 +118,7 @@ export function Home() {
         <FlatList
           data={results}
           keyExtractor={item => item.id}
+          numColumns={2}
           renderItem={({ item }) => (
             <TouchableOpacity
               key={item.id}
@@ -116,9 +127,10 @@ export function Home() {
                 <Image
                   source={{ uri: item.image }}
                   style={{
-                    width: RFValue(280),
-                    height: RFValue(400),
+                    width: (width - 68) / 2,
+                    height: 230,
                     marginRight: 16,
+                    marginBottom: 16,
                     borderRadius: 8,
                   }}
                 />
@@ -127,11 +139,12 @@ export function Home() {
                   <Icon name="camera-off" />
                 </NotImage>
               )}
-              <Title>{item.title}</Title>
+              {/* <Title>{item.title}</Title> */}
             </TouchableOpacity>
           )}
-          showsHorizontalScrollIndicator={false}
-          horizontal
+          showsVerticalScrollIndicator={false}
+          // showsHorizontalScrollIndicator={false}
+          // horizontal
           onEndReached={handleMoreSearch}
         />
       </BooksContainer>

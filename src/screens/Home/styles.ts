@@ -2,6 +2,9 @@ import styled from 'styled-components/native';
 import Feather from 'react-native-vector-icons/Feather';
 import { TextInput } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 export const Container = styled.View`
   flex: 1;
@@ -24,7 +27,7 @@ export const Icon = styled(Feather)`
 
 export const Input = styled(TextInput)`
   width: 90%;
-  height: 40px;
+  height: 50px;
   border-radius: 8px;
   border: 2px solid ${({ theme }) => theme.colors.secundary};
   margin: 16px 0;
@@ -42,9 +45,14 @@ export const SearchContainer = styled.View`
 `;
 
 export const BooksContainer = styled.View`
-  justify-content: center;
+  flex: 1;
+  justify-content: space-between;
   align-items: center;
-  margin: 24px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 24px;
+  margin-right: 24px;
+
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
@@ -58,8 +66,8 @@ export const Message = styled.Text`
 export const NotImage = styled.View`
   justify-content: center;
   align-items: center;
-  width: ${RFValue(280)}px;
-  height: ${RFValue(400)}px;
+  width: ${(width - 68) / 2}px;
+  height: 230px;
   margin-right: 16px;
   border-radius: 8px;
   background-color: ${({ theme }) => theme.colors.text};
