@@ -38,27 +38,14 @@ export const HeaderContent = styled.View`
 `;
 
 export const CoverOfBook = styled.Image`
+  margin-top: 10px;
   width: ${width - 48}px;
   height: 540px;
   border-radius: 8px;
 `;
 
-export const DescriptionContainer = styled.View`
-  padding-top: 24px;
-  width: ${RFPercentage(52)}px;
-  text-justify: distribute-all-lines;
-`;
-
-export const DescriptionText = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.regular};
-  color: ${({ theme }) => theme.colors.text};
-  font-size: 18px;
-  padding: 8px;
-  margin-bottom: 40px;
-`;
-
 export const Authors = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.text};
-  font-size: 18px;
+  font-size: 16px;
 `;

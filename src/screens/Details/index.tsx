@@ -2,6 +2,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from 'styled-components';
+import RenderHtml, {
+  HTMLElementModel,
+  HTMLContentModel,
+} from 'react-native-render-html';
+import { Dimensions } from 'react-native';
 
 import { Header } from '../../components/Header';
 import { useAuth } from '../../hooks/auth';
@@ -13,8 +18,6 @@ import {
   Icon,
   HeaderContent,
   CoverOfBook,
-  DescriptionContainer,
-  DescriptionText,
   Authors,
 } from './styles';
 
@@ -33,8 +36,15 @@ export function Details({ route, navigation }) {
   const [details, setDetails] = useState({} as DetailsProps);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const { id } = route.params;
+  const { width } = Dimensions.get('window');
 
   const storageFavoritesKey = `@searchingBooks:favorites${user.id}`;
+
+  const textHtml = useMemo(() => {
+    return {
+      html: details.description,
+    };
+  }, [details.description]);
 
   const authors = useMemo(() => {
     let authorsString = details.authors?.reduce((acc, current) => {
@@ -124,9 +134,20 @@ export function Details({ route, navigation }) {
         </HeaderContent>
         <Authors>{`${authors}`}</Authors>
         <CoverOfBook source={{ uri: details.image }} />
-        <DescriptionContainer>
-          <DescriptionText>{details.description}</DescriptionText>
-        </DescriptionContainer>
+        {!!textHtml.html && (
+          <RenderHtml
+            contentWidth={width}
+            source={textHtml}
+            baseStyle={{
+              textAlign: 'justify',
+              fontFamily: theme.fonts.medium,
+              fontSize: '16px',
+              color: theme.colors.text,
+              marginBottom: 40,
+              marginTop: 10,
+            }}
+          />
+        )}
       </Content>
     </Container>
   );
