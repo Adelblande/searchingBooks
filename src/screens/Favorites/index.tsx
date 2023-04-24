@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import { Header } from '../../components/Header';
-import { useAuth } from '../../hooks/auth';
+import { useUser } from '../../hooks/user';
 import {
   Container,
   Content,
@@ -23,7 +23,7 @@ interface DetailsProps {
 }
 
 export function Favorites() {
-  const { user } = useAuth();
+  const { user } = useUser();
   const navigation = useNavigation();
   const [favorites, setFavorites] = useState<DetailsProps[]>(
     [] as DetailsProps[],

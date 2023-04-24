@@ -9,7 +9,7 @@ import RenderHtml, {
 import { Dimensions } from 'react-native';
 
 import { Header } from '../../components/Header';
-import { useAuth } from '../../hooks/auth';
+import { useUser } from '../../hooks/user';
 import { api } from '../../services/api';
 import {
   Container,
@@ -31,7 +31,7 @@ interface DetailsProps {
 }
 
 export function Details({ route, navigation }) {
-  const { user } = useAuth();
+  const { user } = useUser();
   const theme = useTheme();
   const [details, setDetails] = useState({} as DetailsProps);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);

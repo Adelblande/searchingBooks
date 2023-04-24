@@ -6,6 +6,7 @@ import 'react-native-gesture-handler';
 import { theme } from './src/global/styles/theme';
 import { Routes } from './src/routes';
 import { AuthProvider } from './src/hooks/auth';
+import { UserProvider } from './src/hooks/user';
 
 const App = () => {
   return (
@@ -14,9 +15,11 @@ const App = () => {
         backgroundColor={theme.colors.primary}
         barStyle="light-content"
       />
-      <AuthProvider>
-        <Routes />
-      </AuthProvider>
+      <UserProvider>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
+      </UserProvider>
     </ThemeProvider>
   );
 };

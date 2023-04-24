@@ -23,7 +23,7 @@ import {
 
 import { api } from '../../services/api';
 import { useNavigation } from '@react-navigation/native';
-import { useAuth } from '../../hooks/auth';
+import { useUser } from '../../hooks/user';
 
 interface ResultsProps {
   id: string;
@@ -32,7 +32,7 @@ interface ResultsProps {
 }
 
 export function Home() {
-  const { user } = useAuth();
+  const { user } = useUser();
 
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([] as ResultsProps[]);
@@ -102,7 +102,7 @@ export function Home() {
         backgroundColor={theme.colors.primary}
         barStyle="light-content"
       />
-      <Header name={user.name} photo={user?.photo} />
+      <Header name={user?.name} photo={user?.photo} />
       <SearchContainer>
         <Input
           placeholder="Digite o título para pesquisar"
