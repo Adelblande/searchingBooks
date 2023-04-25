@@ -120,8 +120,8 @@ export function Home() {
           renderItem={({ item }) => (
             <TouchableOpacity
               key={item.id}
-              onPress={() => item.image && handleNavigationToDetails(item.id)}>
-              {item.image ? (
+              onPress={() => handleNavigationToDetails(item.id)}>
+              {item.image && (
                 <Image
                   source={{ uri: item.image }}
                   style={{
@@ -132,10 +132,6 @@ export function Home() {
                     borderRadius: 8,
                   }}
                 />
-              ) : (
-                <NotImage>
-                  <Icon name="camera-off" />
-                </NotImage>
               )}
             </TouchableOpacity>
           )}

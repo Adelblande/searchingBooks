@@ -12,6 +12,7 @@ import {
   Icon,
   TextCard,
   Title,
+  Message,
 } from './styles';
 
 interface BookProps {
@@ -25,34 +26,20 @@ interface BookProps {
 export function Favorites() {
   const { user } = useUser();
   const navigation = useNavigation();
-  const [favorites, setFavorites] = useState<BookProps[]>([] as BookProps[]);
-
-  const storageFavoritesKey = `@searchingBooks:favorites${user.id}`;
-
-  useEffect(() => {
-    async function verifyFavorite() {
-      const favoritesInStorage = await AsyncStorage.getItem(
-        storageFavoritesKey,
-      );
-      if (favoritesInStorage) {
-        const favoriteList: BookProps[] = JSON.parse(favoritesInStorage);
-
-        setFavorites(favoriteList);
-      }
-    }
-    verifyFavorite();
-  }, []);
 
   return (
     <Container>
       <Header name={user.name} photo={user?.photo} />
       <HeaderContent>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.navigate('home')}>
           <Icon name="arrow-left" />
         </TouchableOpacity>
         <Title>Favoritos</Title>
       </HeaderContent>
       <Content>
+        {user.favorites.length === 0 && (
+          <Message>Você não tem favoritos.</Message>
+        )}
         {user?.favorites?.map(favorite => (
           <TouchableOpacity
             key={favorite.id}
@@ -62,7 +49,7 @@ export function Favorites() {
                 source={{ uri: favorite.image }}
                 style={{
                   width: 80,
-                  height: 84,
+                  height: 100,
                   borderRadius: 4,
                   marginRight: 12,
                 }}

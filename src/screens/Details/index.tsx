@@ -1,11 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useLayoutEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from 'styled-components';
-import RenderHtml, {
-  HTMLElementModel,
-  HTMLContentModel,
-} from 'react-native-render-html';
+import RenderHtml from 'react-native-render-html';
 import { Dimensions } from 'react-native';
 
 import { Header } from '../../components/Header';
@@ -120,7 +117,7 @@ export function Details({ route, navigation }) {
       setIsFavorite(hasInFavorites);
     }
     verifyFavorite();
-  }, []);
+  }, [JSON.stringify(user.favorites)]);
 
   return (
     <Container>

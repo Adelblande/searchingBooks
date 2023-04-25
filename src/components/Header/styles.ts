@@ -36,16 +36,18 @@ export const GreetingContainer = styled.View`
 export const Greeting = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.shape};
+  font-size: ${RFValue(18)}px;
   margin-right: 8px;
 `;
 
 export const UserName = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.shape};
+  font-size: ${RFValue(18)}px;
 `;
 
 export const Icon = styled(Feather)`
-  font-size: ${RFValue(24)}px;
+  font-size: 24px;
   color: ${({ theme }) => theme.colors.secundary};
 `;
 

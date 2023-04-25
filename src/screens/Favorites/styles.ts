@@ -11,7 +11,7 @@ export const Container = styled.View`
 export const Title = styled.Text`
   width: 80%;
   font-size: ${RFValue(18)}px;
-  font-family: ${({ theme }) => theme.fonts.medium};
+  font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.title};
   text-align: center;
 `;
@@ -23,16 +23,15 @@ export const Icon = styled(Feather)`
 `;
 
 export const HeaderContent = styled.View`
-  margin: 8px 24px;
+  padding: 24px;
   flex-direction: row;
-  padding-bottom: 16px;
 `;
 
 export const Content = styled.ScrollView``;
 
 export const FavoriteCard = styled.View`
   flex-direction: row;
-  height: 100px;
+  height: 116px;
   margin: 8px 24px;
   padding: 8px;
   border-radius: 8px;
@@ -44,4 +43,11 @@ export const TextCard = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.text};
   max-width: 250px;
+`;
+
+export const Message = styled.Text`
+  margin: 20px;
+  font-size: ${RFValue(18)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme }) => theme.colors.text};
 `;

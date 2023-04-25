@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import Feather from 'react-native-vector-icons/Feather';
-import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
@@ -22,8 +21,9 @@ export const Content = styled.ScrollView.attrs({
 export const Title = styled.Text`
   text-align: center;
   width: 270px;
-  font-family: ${({ theme }) => theme.fonts.bold};
+  font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.title};
+  font-size: 18px;
 `;
 
 export const Icon = styled(Feather)`

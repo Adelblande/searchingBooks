@@ -52,7 +52,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setToken(response.idToken);
       }
     } catch (error) {
-      throw new Error();
+      throw new Error(error);
     }
   }
 
