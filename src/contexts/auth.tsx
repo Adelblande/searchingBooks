@@ -40,42 +40,27 @@ export function AuthProvider({ children }: AuthProviderProps) {
       console.log(response);
 
       if (response.idToken) {
-        const userLogged = {
+        const userLogged: User = {
           id: response.user.id,
           name: response.user.givenName || '',
           email: response.user.email,
           photo: response.user.photo || '',
+          favorites: [],
         };
 
-        updateUser(userLogged);
+        await updateUser(userLogged);
         setToken(response.idToken);
-        // await AsyncStorage.setItem(
-        //   '@searchingBooks:user',
-        //   JSON.stringify(userLogged),
-        // );
       }
     } catch (error) {
-      console.log('fudeuuu', error);
       throw new Error();
     }
   }
 
   async function signOut() {
     updateUser({} as User);
-    // await AsyncStorage.removeItem('@searchingBooks:user');
+    setToken('');
     await GoogleSignin.signOut();
   }
-
-  useEffect(() => {
-    async function loadUserStorage() {
-      //   const userStorage = await AsyncStorage.getItem('@searchingBooks:user');
-      //   if (userStorage) {
-      //     const userLogged = JSON.parse(userStorage);
-      //     updateUser(userLogged);
-      //   }
-    }
-    loadUserStorage();
-  }, []);
 
   return (
     <AuthContext.Provider value={{ token, signInWithGoogle, signOut }}>

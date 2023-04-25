@@ -14,7 +14,7 @@ import {
   Title,
 } from './styles';
 
-interface DetailsProps {
+interface BookProps {
   id: string;
   title: string;
   authors: string[];
@@ -25,9 +25,7 @@ interface DetailsProps {
 export function Favorites() {
   const { user } = useUser();
   const navigation = useNavigation();
-  const [favorites, setFavorites] = useState<DetailsProps[]>(
-    [] as DetailsProps[],
-  );
+  const [favorites, setFavorites] = useState<BookProps[]>([] as BookProps[]);
 
   const storageFavoritesKey = `@searchingBooks:favorites${user.id}`;
 
@@ -37,7 +35,7 @@ export function Favorites() {
         storageFavoritesKey,
       );
       if (favoritesInStorage) {
-        const favoriteList: DetailsProps[] = JSON.parse(favoritesInStorage);
+        const favoriteList: BookProps[] = JSON.parse(favoritesInStorage);
 
         setFavorites(favoriteList);
       }
@@ -55,7 +53,7 @@ export function Favorites() {
         <Title>Favoritos</Title>
       </HeaderContent>
       <Content>
-        {favorites.map(favorite => (
+        {user?.favorites?.map(favorite => (
           <TouchableOpacity
             key={favorite.id}
             onPress={() => navigation.navigate('details', { id: favorite.id })}>

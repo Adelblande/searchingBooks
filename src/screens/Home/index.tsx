@@ -89,12 +89,10 @@ export function Home() {
   useEffect(() => {
     if (search.length === 0) {
       setResults([]);
+      setStartIndex(0);
+      setMessage('');
     }
   }, [search]);
-
-  useEffect(() => {
-    console.log('Results-->', results);
-  }, [results]);
 
   return (
     <Container>
@@ -139,12 +137,9 @@ export function Home() {
                   <Icon name="camera-off" />
                 </NotImage>
               )}
-              {/* <Title>{item.title}</Title> */}
             </TouchableOpacity>
           )}
           showsVerticalScrollIndicator={false}
-          // showsHorizontalScrollIndicator={false}
-          // horizontal
           onEndReached={handleMoreSearch}
         />
       </BooksContainer>

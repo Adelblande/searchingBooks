@@ -21,6 +21,14 @@ import {
   Authors,
 } from './styles';
 
+interface BookProps {
+  id: string;
+  title: string;
+  authors: string[];
+  description: string;
+  image: string;
+}
+
 interface DetailsProps {
   id: string;
   title: string;
@@ -31,7 +39,7 @@ interface DetailsProps {
 }
 
 export function Details({ route, navigation }) {
-  const { user } = useUser();
+  const { user, updateUser } = useUser();
   const theme = useTheme();
   const [details, setDetails] = useState({} as DetailsProps);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -66,36 +74,38 @@ export function Details({ route, navigation }) {
   const fetchDetailsById = async () => {
     const { data } = await api.get(`/volumes/${id}`);
 
+    console.log('Adel-->', data);
+
     const detailsResponse = {
       id: data.id,
       title: data.volumeInfo.title,
       authors: data.volumeInfo.authors,
       description: data.volumeInfo.description,
-      image: data.volumeInfo.imageLinks.medium,
+      image:
+        data.volumeInfo.imageLinks.medium ??
+        data.volumeInfo.imageLinks.thumbnail,
       publishedDate: data.volumeInfo.publishedDate,
     };
     setDetails(detailsResponse);
   };
 
   const handleFavorite = async () => {
-    const favoritesInStorage = await AsyncStorage.getItem(storageFavoritesKey);
+    const favorites: BookProps[] = user?.favorites;
 
-    let favorites: DetailsProps[] = [];
-    if (favoritesInStorage) {
-      favorites = [...JSON.parse(favoritesInStorage)];
+    if (favorites.length > 0) {
       const index = favorites.findIndex(favorite => favorite.id === details.id);
       if (index === -1) {
-        favorites.push(details);
         setIsFavorite(true);
+        favorites.push(details);
       } else {
-        favorites.splice(index, 1);
         setIsFavorite(false);
+        favorites.splice(index, 1);
       }
     } else {
-      favorites.push(details);
       setIsFavorite(true);
+      favorites.push(details);
     }
-    await AsyncStorage.setItem(storageFavoritesKey, JSON.stringify(favorites));
+    await updateUser({ ...user, favorites });
   };
 
   useEffect(() => {
@@ -104,14 +114,10 @@ export function Details({ route, navigation }) {
 
   useEffect(() => {
     async function verifyFavorite() {
-      const favoritesInStorage = await AsyncStorage.getItem(
-        storageFavoritesKey,
+      const hasInFavorites = user.favorites.some(
+        favorite => favorite.id === id,
       );
-      if (favoritesInStorage) {
-        let favorites: DetailsProps[] = JSON.parse(favoritesInStorage);
-        const hasInFavorites = favorites.some(favorite => favorite.id === id);
-        setIsFavorite(hasInFavorites);
-      }
+      setIsFavorite(hasInFavorites);
     }
     verifyFavorite();
   }, []);
