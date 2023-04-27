@@ -59,10 +59,14 @@ export function Home() {
 
       setTotalResults(data.totalItems);
 
-      const dataResults = data.items.map(item => ({
+      const bookWithCover = data.items.filter(
+        item => !!item.volumeInfo.imageLinks,
+      );
+
+      const dataResults = bookWithCover.map(item => ({
         id: item.id,
-        title: item.volumeInfo.title,
-        image: item.volumeInfo.imageLinks?.thumbnail,
+        title: item.title,
+        image: item.volumeInfo.imageLinks.thumbnail,
       }));
 
       setResults(state => [...state, ...dataResults]);
@@ -94,6 +98,10 @@ export function Home() {
     }
   }, [search]);
 
+  useEffect(() => {
+    console.log('Results-->', results);
+  }, [results]);
+
   return (
     <Container>
       <StatusBar
@@ -121,18 +129,16 @@ export function Home() {
             <TouchableOpacity
               key={item.id}
               onPress={() => handleNavigationToDetails(item.id)}>
-              {item.image && (
-                <Image
-                  source={{ uri: item.image }}
-                  style={{
-                    width: (width - 68) / 2,
-                    height: 230,
-                    marginRight: 16,
-                    marginBottom: 16,
-                    borderRadius: 8,
-                  }}
-                />
-              )}
+              <Image
+                source={{ uri: item.image }}
+                style={{
+                  width: (width - 68) / 2,
+                  height: 230,
+                  marginRight: 16,
+                  marginBottom: 16,
+                  borderRadius: 8,
+                }}
+              />
             </TouchableOpacity>
           )}
           showsVerticalScrollIndicator={false}
